@@ -3,6 +3,7 @@ import Counter from "./assignments/Counter.jsx";
 import ToggleButton from "./assignments/ToggleButton.jsx";
 import ProfileCard from "./assignments/ProfileCard.jsx";
 import AutoCorrectApp from "./AutoCorrectApp";
+import DailyQuote from "./DailyQuote";
 
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
     </div>
      <div>
       <ThemeApp />
+    </div>
+    <div>
+      <DailyQuote />
     </div>
     </div>
   );
