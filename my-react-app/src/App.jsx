@@ -39,6 +39,9 @@ function App() {
        <div>
       <AutoCorrectApp />
     </div>
+     <div>
+      <ThemeApp />
+    </div>
     </div>
   );
 }
