@@ -1,27 +1,9 @@
-import "./App.css";
-import Counter from "./assignments/Counter.jsx";
-import ToggleButton from "./assignments/ToggleButton.jsx";
-import ProfileCard from "./assignments/profilecard.jsx";
-
-
+import ProfileCard from "./ProfileCard";
 
 function App() {
   return (
     <div>
-      <div>
-        {" "}
-        Question1: <Counter initialValue={4} />
-      </div>
-      <div>
-        Question2:
-        <h1>Toggle Example</h1>
-        {/* Without label */}
-        <ToggleButton />
-        {/* With label (Bonus) */}
-        <ToggleButton label="Light Switch" />
-      </div>
-      <div>
-         <h1 style={{ textAlign: "center" }}>Profile Cards</h1>
+      <h1 style={{ textAlign: "center" }}>Profile Cards</h1>
 
       {/* Example 1: With all props */}
       <ProfileCard
@@ -35,7 +17,6 @@ function App() {
 
       {/* Example 3: No props at all (uses all defaults) */}
       <ProfileCard />
-      </div>
     </div>
   );
 }
