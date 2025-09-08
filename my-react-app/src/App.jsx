@@ -5,6 +5,7 @@ import ProfileCard from "./assignments/ProfileCard.jsx";
 import AutoCorrectApp from "./AutoCorrectApp";
 import DailyQuote from "./DailyQuote";
 import UserProfiles from "./UserProfiles";
+import Stopwatch from "./Stopwatch";
 
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
     </div>
      <div>
       <UserProfiles />
+    </div>
+     <div>
+      <Stopwatch />
     </div>
     </div>
   );
