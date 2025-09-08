@@ -4,6 +4,7 @@ import ToggleButton from "./assignments/ToggleButton.jsx";
 import ProfileCard from "./assignments/ProfileCard.jsx";
 import AutoCorrectApp from "./AutoCorrectApp";
 import DailyQuote from "./DailyQuote";
+import UserProfiles from "./UserProfiles";
 
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
     </div>
     <div>
       <DailyQuote />
+    </div>
+     <div>
+      <UserProfiles />
     </div>
     </div>
   );
