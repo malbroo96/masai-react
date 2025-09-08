@@ -1,8 +1,8 @@
 import "./App.css";
 import Counter from "./assignments/Counter.jsx";
 import ToggleButton from "./assignments/ToggleButton.jsx";
-import ProfileCard from "./assignments/profilecard.jsx";
-
+import ProfileCard from "./assignments/ProfileCard.jsx";
+import AutoCorrectApp from "./AutoCorrectApp";
 
 
 function App() {
@@ -36,6 +36,9 @@ function App() {
       {/* Example 3: No props at all (uses all defaults) */}
       <ProfileCard />
       </div>
+       <div>
+      <AutoCorrectApp />
+    </div>
     </div>
   );
 }
