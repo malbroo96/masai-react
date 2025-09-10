@@ -1,0 +1,67 @@
+/* Global body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+}
+
+/* Main container for pages */
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Headings color */
+h1, h2 {
+  color: #333;
+}
+
+/* Dropdowns for filtering and sorting */
+select {
+  padding: 8px;
+  margin: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Products container using flexbox */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Individual product cards */
+.product-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* Hover effect on product cards */
+.product-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Product images */
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Product detail link styling */
+.product-card a {
+  text-decoration: none;
+  color: #0077ff;
+  font-weight: bold;
+}
