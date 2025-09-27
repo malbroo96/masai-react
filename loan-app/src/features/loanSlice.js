@@ -13,7 +13,7 @@ const loanslice =createSlice({
         addApplication:(state,action)=>{
             state.applications.push(action.payload )
         },
-        clearApplications:(state)=>{
+        clearApplication:(state)=>{
             state.applications =[]
         }
     }
@@ -21,5 +21,5 @@ const loanslice =createSlice({
 
 
 
-export const {addApplication,clearApplications} = loanslice.actions
+export const {addApplication,clearApplication} = loanslice.actions
 export default loanslice.reducer
