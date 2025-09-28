@@ -1,13 +1,38 @@
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import type { initialState } from "../store";
 import type { LoanApplication } from "../features/loanSlice";
+import { setApplications, setLoading, setError } from "../features/loanSlice";
+import { fetchUserLoans } from "../firebase";
 import "../styles/loan-dashboard.css";
 
 export default function LoanDashboard() {
-  const { applications } = useSelector((state: initialState) => state.loan);
+  const dispatch = useDispatch();
+  const { applications, loading, error } = useSelector(
+    (state: initialState) => state.loan
+  );
+  const { user } = useSelector((state: initialState) => state.auth);
   const [selectedApplication, setSelectedApplication] =
     useState<LoanApplication | null>(null);
+
+  useEffect(() => {
+    const loadLoans = async () => {
+      if (!user) return;
+
+      try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        const loans = await fetchUserLoans(user.uid);
+        dispatch(setApplications(loans));
+      } catch (err) {
+        dispatch(setError((err as Error).message));
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+
+    loadLoans();
+  }, [dispatch, user]);
 
   // Filter applications by status
   const getApplicationsByStatus = (status: LoanApplication["status"]) => {
@@ -31,16 +56,59 @@ export default function LoanDashboard() {
         <h1 className="dashboard-title">Loan Management</h1>
       </div>
 
-      <div className="dashboard-grid">
+      {loading ? (
         <div className="dashboard-card">
-          <div className="card-header">
-            <h3 className="card-title">Loan Applications</h3>
-            <p className="mt-1 text-sm text-gray-500">
-              Track the status of your loan applications
-            </p>
-          </div>
+          <p>Loading your applications...</p>
         </div>
-      </div>
+      ) : error ? (
+        <div className="dashboard-card error">
+          <p>{error}</p>
+        </div>
+      ) : (
+        <div className="dashboard-grid">
+          {applications.length === 0 ? (
+            <div className="dashboard-card">
+              <div className="card-header">
+                <h3 className="card-title">No Applications Yet</h3>
+                <p>You haven't submitted any loan applications yet.</p>
+              </div>
+            </div>
+          ) : (
+            <div className="dashboard-card">
+              <div className="card-header">
+                <h3 className="card-title">Loan Applications</h3>
+                <p className="mt-1">
+                  Track the status of your loan applications
+                </p>
+              </div>
+              <div className="applications-list">
+                {applications.map((app) => (
+                  <div
+                    key={app.id}
+                    className="application-item"
+                    onClick={() => setSelectedApplication(app)}
+                  >
+                    <div className="application-info">
+                      <h4>{app.personalInfo?.fullName}</h4>
+                      <p>Amount: ${app.financialInfo?.loanAmount}</p>
+                      <p>Purpose: {app.financialInfo?.loanPurpose}</p>
+                    </div>
+                    <div className="application-status">
+                      {renderStatusBadge(app.status)}
+                      <div className="progress-bar">
+                        <div
+                          className="progress-bar-fill"
+                          style={{ width: `${calculateProgress(app.status)}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Loan Applications</h1>
         <div className="flex space-x-3">

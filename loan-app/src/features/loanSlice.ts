@@ -33,12 +33,16 @@ interface LoanState {
   applications: LoanApplication[];
   currentApplication: Partial<LoanApplication> | null;
   currentStep: number;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: LoanState = {
   applications: [],
   currentApplication: null,
   currentStep: 1,
+  loading: false,
+  error: null,
 };
 
 const loanSlice = createSlice({
@@ -111,6 +115,15 @@ const loanSlice = createSlice({
         application.updatedAt = new Date().toISOString();
       }
     },
+    setApplications: (state, action: PayloadAction<LoanApplication[]>) => {
+      state.applications = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -122,6 +135,9 @@ export const {
   submitApplication,
   setCurrentStep,
   updateApplicationStatus,
+  setApplications,
+  setLoading,
+  setError,
 } = loanSlice.actions;
 
 export default loanSlice.reducer;

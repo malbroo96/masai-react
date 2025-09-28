@@ -270,8 +270,8 @@ export default function LoanForm() {
 
       case 2:
         return (
-          <div className="space-y-4">
-            <div>
+          <div className="form-container">
+            <div className="form-group">
               <label htmlFor="employmentStatus">Employment Status</label>
               <select
                 id="employmentStatus"
@@ -389,7 +389,7 @@ export default function LoanForm() {
 
       case 3:
         return (
-          <div className="space-y-4">
+          <div className="form-container">
             <div className="upload-area">
               <input
                 type="file"
@@ -473,15 +473,13 @@ export default function LoanForm() {
 
       case 4:
         return (
-          <div className="space-y-6">
-            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-              <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Application Summary
-                </h3>
+          <div className="form-container">
+            <div className="card">
+              <div className="summary-section">
+                <h3 className="summary-title">Application Summary</h3>
               </div>
-              <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              <div className="summary-content">
+                <dl className="summary-grid">
                   <div className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">
                       Full Name
@@ -570,21 +568,21 @@ export default function LoanForm() {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Loan Application</h2>
+    <div className="container">
+      <div className="card">
+        <h2 className="summary-title">Loan Application</h2>
 
         {renderProgressBar()}
 
         <form onSubmit={(e) => e.preventDefault()}>
           {renderStepContent()}
 
-          <div className="mt-8 flex justify-between">
+          <div className="form-nav">
             {currentStep > 1 && (
               <button
                 type="button"
                 onClick={handleBack}
-                className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="btn btn-secondary"
               >
                 Back
               </button>
@@ -594,7 +592,7 @@ export default function LoanForm() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="ml-auto bg-indigo-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="btn btn-primary ml-auto"
               >
                 Next
               </button>
@@ -602,7 +600,7 @@ export default function LoanForm() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="ml-auto bg-green-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                className="btn btn-success ml-auto"
               >
                 Submit Application
               </button>
