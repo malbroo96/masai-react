@@ -1,0 +1,146 @@
+/* Auth Form Container */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  padding: 3rem 1rem;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+.auth-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-input-group label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: #111827;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.auth-input.error {
+  border-color: #ef4444;
+}
+
+.auth-input-error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.auth-error {
+  background-color: #fef2f2;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.auth-error-message {
+  color: #991b1b;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.auth-submit {
+  position: relative;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: #6366f1;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.auth-submit:hover:not(:disabled) {
+  background-color: #4f46e5;
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-loading {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: spin 1s linear infinite;
+}
+
+.auth-switch {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.auth-switch-btn {
+  color: #6366f1;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.auth-switch-btn:hover {
+  color: #4f46e5;
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
