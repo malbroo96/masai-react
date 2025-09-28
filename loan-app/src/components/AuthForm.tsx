@@ -44,27 +44,88 @@ export default function AuthForm() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <div>
+    <div style={{ width: "100%" }}>
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem"
+      }}>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          style={{
+            padding: "0.75rem",
+            borderRadius: "4px",
+            border: "1px solid #ddd",
+            fontSize: "1rem",
+            width: "100%"
+          }}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          style={{
+            padding: "0.75rem",
+            borderRadius: "4px",
+            border: "1px solid #ddd",
+            fontSize: "1rem",
+            width: "100%"
+          }}
         />
-        <button onClick={handleSignup} disabled={loading}>
-          Sign Up
-        </button>
-        <button onClick={handleLogin} disabled={loading}>
-          Log In
-        </button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <div style={{
+          display: "flex",
+          gap: "1rem",
+          marginTop: "0.5rem"
+        }}>
+          <button 
+            onClick={handleSignup} 
+            disabled={loading}
+            style={{
+              flex: 1,
+              padding: "0.75rem",
+              backgroundColor: "#2e7d32",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              fontSize: "1rem",
+              cursor: loading ? "not-allowed" : "pointer",
+              opacity: loading ? 0.7 : 1
+            }}
+          >
+            Sign Up
+          </button>
+          <button 
+            onClick={handleLogin} 
+            disabled={loading}
+            style={{
+              flex: 1,
+              padding: "0.75rem",
+              backgroundColor: "#1976d2",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              fontSize: "1rem",
+              cursor: loading ? "not-allowed" : "pointer",
+              opacity: loading ? 0.7 : 1
+            }}
+          >
+            Log In
+          </button>
+        </div>
+        {error && (
+          <p style={{ 
+            color: "#d32f2f", 
+            margin: "0.5rem 0",
+            textAlign: "center",
+            fontSize: "0.875rem"
+          }}>
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );
