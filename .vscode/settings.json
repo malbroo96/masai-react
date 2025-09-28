@@ -1,4 +1,45 @@
 {
+  // Linting & formatting
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // Tabs & indentation
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  // Files & paths
+  "path-intellisense.mappings": {
+    "@": "${workspaceFolder}/src"
+  },
+  "typescript.preferences.importModuleSpecifier": "shortest",
+
+  // UI
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Default Dark+",
+
+  // GitLens (optional tweaks)
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.currentLine.enabled": true,
+
+  // Terminal
+  "terminal.integrated.shellIntegration.enabled": true,
+
+  // Project consistency
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true
+  },
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#ab307e",
     "activityBar.background": "#ab307e",
