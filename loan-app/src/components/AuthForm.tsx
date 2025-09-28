@@ -1,23 +1,28 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, setError, setLoading, logout } from "../features/authSlice";
-import { signup, login, logoutUser } from "../firebaseAuth";
+import { setUser, setError, setLoading } from "../features/authSlice";
+import { signup, login } from "../firebaseAuth";
 import type { initialState } from "../store";
 
 export default function AuthForm() {
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector(
-    (state: initialState) => state.auth
-  );
+  const { loading, error } = useSelector((state: initialState) => state.auth);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // Determine role based on email
+  const getRole = (email: string) => {
+    if (email.trim().toLowerCase() === "admin@site.com") return "admin";
+    return "user";
+  };
 
   const handleSignup = async () => {
     dispatch(setLoading(true));
     try {
       const res = await signup(email, password);
-      dispatch(setUser(res.user));
+      const role = getRole(email);
+      dispatch(setUser({ ...res.user, role }));
     } catch (err) {
       console.log(err);
       dispatch(setError("handleSignup failed: "));
@@ -29,7 +34,8 @@ export default function AuthForm() {
     dispatch(setLoading(true));
     try {
       const res = await login(email, password);
-      dispatch(setUser(res.user));
+      const role = getRole(email);
+      dispatch(setUser({ ...res.user, role }));
     } catch (err) {
       console.log(err);
       dispatch(setError("handleLogin failed: "));
@@ -37,41 +43,29 @@ export default function AuthForm() {
     dispatch(setLoading(false));
   };
 
-  const handleLogout = async () => {
-    await logoutUser();
-    dispatch(logout());
-  };
-
   return (
     <div style={{ padding: 20 }}>
-      {user ? (
-        <div>
-          <h2>Welcome, {user.email}</h2>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleSignup} disabled={loading}>
-            Sign Up
-          </button>
-          <button onClick={handleLogin} disabled={loading}>
-            Log In
-          </button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </div>
-      )}
+      <div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleSignup} disabled={loading}>
+          Sign Up
+        </button>
+        <button onClick={handleLogin} disabled={loading}>
+          Log In
+        </button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </div>
     </div>
   );
 }
