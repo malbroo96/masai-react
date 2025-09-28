@@ -13,6 +13,8 @@ import {
   type LoanApplication,
 } from "../features/loanSlice";
 
+import { saveLoanApplication } from "../firebase";
+
 const steps = [
   "Personal Information",
   "Financial Details",
@@ -127,9 +129,27 @@ export default function LoanForm() {
     dispatch(setCurrentStep(currentStep - 1));
   };
 
-  const handleSubmit = () => {
-    dispatch(submitApplication());
-    navigate("/dashboard");
+  const handleSubmit = async () => {
+    try {
+      if (!user) {
+        console.error("User not authenticated");
+        return;
+      }
+
+      const loanData = {
+        userId: user.uid,
+        personalInfo,
+        financialInfo,
+        documents,
+      };
+
+      await saveLoanApplication(loanData);
+      dispatch(submitApplication());
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error submitting loan application:", error);
+      // You might want to show an error message to the user here
+    }
   };
 
   const renderProgressBar = () => {
@@ -550,11 +570,9 @@ export default function LoanForm() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-      <div className="bg-white shadow-sm rounded-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
-          Loan Application
-        </h2>
+    <div>
+      <div>
+        <h2>Loan Application</h2>
 
         {renderProgressBar()}
 

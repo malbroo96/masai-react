@@ -91,11 +91,11 @@
 
 /* Progress Bar */
 .progress-bar {
-  height: 0.5rem;
+  /* height: 5rem; */
   background-color: #e5e7eb;
   border-radius: 0.25rem;
   overflow: hidden;
-  margin-top: 0.5rem;
+  margin: 1rem;
 }
 
 .progress-fill {
