@@ -1,6 +1,6 @@
 /**
  * AuthForm Component
- * 
+ *
  * A comprehensive authentication form component that handles both user login and signup.
  * Features include:
  * - Email and password authentication
@@ -8,7 +8,7 @@
  * - Loading states and error handling
  * - Role-based access control (admin vs user)
  * - Seamless switching between login and signup modes
- * 
+ *
  * Uses Firebase Authentication and Redux for state management.
  */
 
@@ -29,7 +29,7 @@ export default function AuthForm() {
   /**
    * Determines user role based on email address
    * Special email 'admin@site.com' gets admin privileges
-   * 
+   *
    * @param email - User's email address
    * @returns 'admin' for admin@site.com, 'user' for all other emails
    */
@@ -83,7 +83,7 @@ export default function AuthForm() {
    * Checks for:
    * - Email presence and format
    * - Password presence and minimum length
-   * 
+   *
    * Updates error state with appropriate messages
    * @returns boolean - true if form is valid, false otherwise
    */
@@ -118,7 +118,7 @@ export default function AuthForm() {
    * 1. Prevents default form submission
    * 2. Validates form inputs
    * 3. Calls appropriate authentication handler based on mode
-   * 
+   *
    * @param e - React form event
    */
   const handleSubmit = async (e: React.FormEvent) => {
@@ -133,8 +133,8 @@ export default function AuthForm() {
   };
 
   return (
-    {/* Main authentication container with centered box layout */}
     <div className="auth-container">
+      {/* Main authentication container with centered box layout */}
       <div className="auth-box">
         <h2 className="auth-title">
           {isLogin ? "Sign in to your account" : "Create new account"}
