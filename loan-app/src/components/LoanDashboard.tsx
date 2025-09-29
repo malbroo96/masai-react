@@ -1,3 +1,15 @@
+/**
+ * LoanDashboard Component
+ *
+ * A comprehensive dashboard for managing and displaying loan applications.
+ * Features include:
+ * - Displaying loan applications with their current status
+ * - Progress tracking for each application
+ * - Detailed view of individual applications
+ * - Status summary and filtering
+ * - Document tracking
+ */
+
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import type { initialState } from "../store";
@@ -15,18 +27,24 @@ export default function LoanDashboard() {
   const [selectedApplication, setSelectedApplication] =
     useState<LoanApplication | null>(null);
 
+  // Fetch user's loan applications on component mount and when user changes
   useEffect(() => {
     const loadLoans = async () => {
-      if (!user) return;
+      if (!user) return; // Skip if user is not authenticated
 
       try {
+        // Start loading state and clear any previous errors
         dispatch(setLoading(true));
         dispatch(setError(null));
+
+        // Fetch loans from Firebase for the current user
         const loans = await fetchUserLoans(user.uid);
         dispatch(setApplications(loans));
       } catch (err) {
+        // Handle any errors during fetch
         dispatch(setError((err as Error).message));
       } finally {
+        // Always stop loading state
         dispatch(setLoading(false));
       }
     };
@@ -34,18 +52,32 @@ export default function LoanDashboard() {
     loadLoans();
   }, [dispatch, user]);
 
-  // Filter applications by status
+  /**
+   * Filters applications based on their current status
+   * @param status - The status to filter by (draft, submitted, under-review, approved)
+   * @returns Array of applications matching the specified status
+   */
   const getApplicationsByStatus = (status: LoanApplication["status"]) => {
     return applications.filter((app) => app.status === status);
   };
 
-  // Calculate progress percentage for an application
+  /**
+   * Calculates the progress percentage of an application based on its status
+   * Progress is determined by the application's position in the loan process workflow
+   * @param status - Current status of the application
+   * @returns Number between 0-100 representing completion percentage
+   */
   const calculateProgress = (status: LoanApplication["status"]) => {
     const stages = ["draft", "submitted", "under-review", "approved"];
     const currentIndex = stages.indexOf(status);
     return ((currentIndex + 1) / stages.length) * 100;
   };
 
+  /**
+   * Renders a styled badge indicating the application's status
+   * @param status - Current status of the application
+   * @returns JSX element with appropriate styling based on status
+   */
   const renderStatusBadge = (status: LoanApplication["status"]) => {
     return <span className={`status-badge status-${status}`}>{status}</span>;
   };
@@ -128,7 +160,8 @@ export default function LoanDashboard() {
         </div>
       </div>
 
-      {/* Applications grid */}
+      {/* Applications grid - Displays all loan applications in a responsive grid layout
+          Each card shows application details including status, progress, and key information */}
       <div className="applications-grid">
         {applications.map((application) => (
           <div key={application.id} className="application-card">
@@ -212,7 +245,9 @@ export default function LoanDashboard() {
         ))}
       </div>
 
-      {/* Application details modal */}
+      {/* Application details modal - Displays comprehensive information about a selected application
+          Opens as an overlay when an application is clicked
+          Closes when clicking outside or the close button */}
       {selectedApplication && (
         <div className="modal-overlay">
           <div className="modal-container">

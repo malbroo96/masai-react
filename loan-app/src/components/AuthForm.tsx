@@ -1,3 +1,17 @@
+/**
+ * AuthForm Component
+ * 
+ * A comprehensive authentication form component that handles both user login and signup.
+ * Features include:
+ * - Email and password authentication
+ * - Form validation with error messages
+ * - Loading states and error handling
+ * - Role-based access control (admin vs user)
+ * - Seamless switching between login and signup modes
+ * 
+ * Uses Firebase Authentication and Redux for state management.
+ */
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setError, setLoading } from "../features/authSlice";
@@ -12,12 +26,23 @@ export default function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Determine role based on email
+  /**
+   * Determines user role based on email address
+   * Special email 'admin@site.com' gets admin privileges
+   * 
+   * @param email - User's email address
+   * @returns 'admin' for admin@site.com, 'user' for all other emails
+   */
   const getRole = (email: string) => {
     if (email.trim().toLowerCase() === "admin@site.com") return "admin";
     return "user";
   };
 
+  /**
+   * Handles the user signup process
+   * Creates a new user account in Firebase and sets user state in Redux
+   * with appropriate role based on email
+   */
   const handleSignup = async () => {
     dispatch(setLoading(true));
     try {
@@ -31,6 +56,11 @@ export default function AuthForm() {
     dispatch(setLoading(false));
   };
 
+  /**
+   * Handles the user login process
+   * Authenticates user credentials with Firebase and updates Redux state
+   * Sets appropriate role and handles any authentication errors
+   */
   const handleLogin = async () => {
     dispatch(setLoading(true));
     try {
@@ -44,13 +74,24 @@ export default function AuthForm() {
     dispatch(setLoading(false));
   };
 
+  // State to toggle between login and signup modes
   const [isLogin, setIsLogin] = useState(true);
   const [errors, setErrors] = useState({ email: "", password: "" });
 
+  /**
+   * Validates form input before submission
+   * Checks for:
+   * - Email presence and format
+   * - Password presence and minimum length
+   * 
+   * Updates error state with appropriate messages
+   * @returns boolean - true if form is valid, false otherwise
+   */
   const validateForm = () => {
     const newErrors = { email: "", password: "" };
     let isValid = true;
 
+    // Validate email
     if (!email) {
       newErrors.email = "Email is required";
       isValid = false;
@@ -59,6 +100,7 @@ export default function AuthForm() {
       isValid = false;
     }
 
+    // Validate password
     if (!password) {
       newErrors.password = "Password is required";
       isValid = false;
@@ -71,6 +113,14 @@ export default function AuthForm() {
     return isValid;
   };
 
+  /**
+   * Handles form submission for both login and signup
+   * 1. Prevents default form submission
+   * 2. Validates form inputs
+   * 3. Calls appropriate authentication handler based on mode
+   * 
+   * @param e - React form event
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -83,6 +133,7 @@ export default function AuthForm() {
   };
 
   return (
+    {/* Main authentication container with centered box layout */}
     <div className="auth-container">
       <div className="auth-box">
         <h2 className="auth-title">

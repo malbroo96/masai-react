@@ -1,19 +1,31 @@
+/* ==========================================================================
+   Loan Dashboard Styles
+   This stylesheet contains all styles for the loan application dashboard.
+   ========================================================================== */
+
+/* Main Layout
+   ========================================================================== */
 .dashboard {
   padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1200px; /* Constrain maximum width for readability */
+  margin: 0 auto; /* Center the dashboard content */
 }
 
+/* Header Section
+   ========================================================================== */
 .dashboard-header {
   margin-bottom: 2rem;
 }
 
 .dashboard-title {
-  font-size: 1.875rem;
-  font-weight: 600;
-  color: #1f2937;
+  font-size: 1.875rem; /* 30px */
+  font-weight: 600; /* Semi-bold */
+  color: #1f2937; /* Dark gray for better contrast */
 }
 
+/* Status Summary Section
+   Displays overview of all loan applications statuses
+   ========================================================================== */
 .status-summary {
   background-color: white;
   padding: 1.5rem;
@@ -43,18 +55,28 @@
   color: #374151;
 }
 
+/* Applications Grid Layout
+   Uses CSS Grid for responsive card layout
+   Auto-fills columns based on available space
+   ========================================================================== */
 .applications-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* Responsive grid */
 }
 
+/* Application Card
+   Individual loan application card with hover effects
+   ========================================================================== */
 .application-card {
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s;
-  cursor: pointer;
+  transition: box-shadow 0.2s; /* Smooth transition for hover effect */
+  cursor: pointer; /* Indicates clickable */
 }
 
 .application-card:hover {
@@ -84,10 +106,15 @@
   color: #6b7280;
 }
 
+/* Progress Section
+   Shows application progress with animated progress bar
+   ========================================================================== */
 .progress-section {
   margin: 1.5rem 0;
 }
 
+/* Progress Header - contains label and percentage
+   Uses flexbox for space-between layout */
 .progress-header {
   display: flex;
   justify-content: space-between;
@@ -96,28 +123,31 @@
 }
 
 .progress-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500; /* Medium weight */
+  color: #374151; /* Dark gray */
 }
 
 .progress-percentage {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #6366f1;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600; /* Semi-bold */
+  color: #6366f1; /* Indigo for emphasis */
 }
 
+/* Progress Bar
+   Custom styled progress bar with smooth animations
+   ========================================================================== */
 .progress-bar-container {
   height: 0.5rem;
-  background-color: #e5e7eb;
-  border-radius: 9999px;
-  overflow: hidden;
+  background-color: #e5e7eb; /* Light gray background */
+  border-radius: 9999px; /* Fully rounded corners */
+  overflow: hidden; /* Contain the fill bar */
 }
 
 .progress-bar-fill {
   height: 100%;
-  background-color: #6366f1;
-  transition: width 0.5s ease-out;
+  background-color: #6366f1; /* Indigo fill color */
+  transition: width 0.5s ease-out; /* Smooth width animation */
 }
 
 .application-details {
@@ -204,28 +234,37 @@
   text-align: center;
 }
 
-/* Modal styles */
+/* Modal Styles
+   Implements a centered modal dialog with backdrop
+   ========================================================================== */
+
+/* Modal Overlay
+   Creates a semi-transparent backdrop and centers the modal
+   Uses fixed positioning to cover the entire viewport */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 50;
-  display: flex;
+  z-index: 50; /* Ensure modal appears above other content */
+  display: flex; /* Center the modal */
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black backdrop */
 }
 
+/* Modal Container
+   The main modal window with maximum width and shadow
+   Positioned relative for potential absolute children */
 .modal-container {
   position: relative;
   width: 100%;
-  max-width: 32rem;
+  max-width: 32rem; /* 512px maximum width */
   margin: 2rem;
   background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); /* Elevated shadow effect */
 }
 
 .modal-body {
@@ -253,7 +292,12 @@
   justify-content: flex-end;
 }
 
-/* Loading and error states */
+/* State-specific Styles
+   Styles for loading, error, and different application states
+   ========================================================================== */
+
+/* Loading and Error Cards
+   Used for displaying loading states and error messages */
 .dashboard-card {
   background-color: white;
   padding: 1.5rem;
@@ -261,9 +305,11 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Error State
+   Adds a red border and text color for error messages */
 .dashboard-card.error {
-  border-left: 4px solid #ef4444;
-  color: #991b1b;
+  border-left: 4px solid #ef4444; /* Red border indicator */
+  color: #991b1b; /* Dark red text for contrast */
 }
 
 .dashboard-title {
@@ -278,9 +324,13 @@
   gap: 2rem;
 }
 
+/* Responsive Breakpoints
+   Adjusts layout for different screen sizes
+   ========================================================================== */
 @media (min-width: 1280px) {
+  /* XL breakpoint - 1280px */
   .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Two columns on larger screens */
   }
 }
 
